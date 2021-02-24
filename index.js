@@ -7,7 +7,7 @@ const open = require('open')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/', express.static(__dirname + '/static'))
 
-var state = { 'journal': Array(0xd1).fill(0).join(',') }
+var state = { 'journal': Array(0xec).fill(0).join(',') }
 
 const broadcast = (status) => {
   for(let client of expressWs.getWss().clients) {
