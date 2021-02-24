@@ -13,5 +13,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dregu",
-  "license": "MIT"
+  "license": "MIT",
+  "bin": "index.js",
+  "pkg": {
+    "assets": ["static/*", "static/img/**/*"]
+  }
 }
