@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+body {
+  background-color: #222222;
+  color: #eee;
+  font-family: 'Segoe UI', sans-serif;
+}
+#container {
+  position: relative;
+}
+#journal {
+  display: flex;
+  flex-direction: column;
+}
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 200px;
+}
+.header {
+  width: 180px;
+  float: left;
+}
+.header .name {
+  width: 110px;
+  display: inline-block;
+}
+.item {
+  width: 32px;
+  height: 32px;
+}
+#places .item, #frogtrap {
+  width: 64px;
+}
+#totemtrap, #liontrap, #slidingwall, #stickytrap {
+  height: 64px;
+}
+#giantclam, #boulder, #giantcrushtrap, #logtrap, #bonedrop, #yama, #tusk, #waddler, #ammit, #anubis, #anubis2, #apep, #celestialjelly, #eggplantminister, #ghost, #giantfly, #giantspider, #goliathfrog, #greathumphead, #hundun, #kingu, #lahamu, #lamassu, #lavamander, #mechrider, #mummy, #olmec, #osiris, #pangxie, #queenbee, #quillback, #tiamat, #yetiking, #yetiqueen {
+  width: 64px;
+  height: 64px;
+}
