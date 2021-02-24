@@ -16,15 +16,17 @@ body {
   display: flex;
   flex-direction: column;
 }
+.cat {
+  display: flex;
+}
 .items {
   display: flex;
   flex-wrap: wrap;
-  margin-left: 160px;
-  margin-top: -32px;
 }
 .header {
   width: 160px;
   height: 32px;
+  flex-shrink: 0;
 }
 .header .name {
   width: 80px;
@@ -67,7 +69,7 @@ body {
   order: 3;
 }
 @media only screen and (max-width: 799px) {
-  .items {
-    margin: auto;
+  .cat {
+    display: block;
   }
 }
