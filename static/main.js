@@ -229,31 +229,7 @@ var journal = {
       { 'name': 'Bone Drop', 'found': 0 },
       { 'name': 'Egg Sac', 'found': 0 }
     ]
-  },
-  'Chars': {
-    'offset': 94, 'size': 20, 'num': 5, 'found': 0, 'entries': [
-      { 'name': 'Ana', 'found': 0 },
-      { 'name': 'Margaret', 'found': 0 },
-      { 'name': 'Colin', 'found': 0 },
-      { 'name': 'Roffy', 'found': 0 },
-      { 'name': 'Alto', 'found': 0 },
-      { 'name': 'Liz', 'found': 0 },
-      { 'name': 'Nekka', 'found': 0 },
-      { 'name': 'LISE', 'found': 0 },
-      { 'name': 'Coco', 'found': 0 },
-      { 'name': 'Manfred', 'found': 0 },
-      { 'name': 'Jay', 'found': 0 },
-      { 'name': 'Tina', 'found': 0 },
-      { 'name': 'Valerie', 'found': 0 },
-      { 'name': 'Au', 'found': 0 },
-      { 'name': 'Demi', 'found': 0 },
-      { 'name': 'Pilot', 'found': 0 },
-      { 'name': 'Airyn', 'found': 0 },
-      { 'name': 'Dirk', 'found': 0 },
-      { 'name': 'Guy', 'found': 0 },
-      { 'name': 'Classic', 'found': 0 }
-    ]
-  },
+  }
 }, state = {}
 
 const entryCount = (entries) => {
@@ -268,6 +244,11 @@ const found = (cat, i, found) => {
   if (el)
     el.style.display = (found ? 'none' : 'inline-block')
   var found = document.querySelector('#' + getId(cat) + ' .found')
+  var num = 0
+  for (let i of journal[cat].entries) {
+    if (i.found) num++
+  }
+  journal[cat].found = num
   if (found)
     found.innerHTML = journal[cat].found
 }
@@ -309,21 +290,24 @@ const getCat = (cat) => {
   return document.querySelector('#'+getId(cat)+' .items')
 }
 
-const getItem = (cat, item, found) => {
+const getItem = (cat, item, n, f) => {
   if (!document.querySelector('#'+getId(cat)+' .'+getId(item))) {
     var items = getCat(cat)
-    if (getId(item) == 'quillback') {
+    if (getId(item) == 'quillback' || getId(item) == 'terra') {
       var br = document.createElement('div')
       br.className = 'break'
       items.appendChild(br)
     }
     var el = document.createElement('img')
-    if (cat == 'Chars') cat = 'People'
     el.src = 'img/'+getId(cat)+'/'+getId(item)+'.png'
     el.alt = item
     el.title = item
-    el.style.display = (found ? 'none' : 'inline-block')
-    el.className = 'item '+getId(item)
+    el.style.display = (f ? 'none' : 'inline-block')
+    el.className = 'item ' + getId(item)
+    el.dataset.cat = cat
+    el.dataset.item = item
+    el.dataset.n = n
+    el.onclick = function() { found(this.dataset.cat, parseInt(this.dataset.n), 1) }
     items.appendChild(el)
   }
   return document.querySelector('#'+getId(cat)+' .'+getId(item))
@@ -360,10 +344,10 @@ const getJournal = () => {
     el.id = 'journal'
     container.appendChild(el)
     var data = state.journal.split(',')
-    var pos = 0
     for (let [name, cat] of Object.entries(journal)) {
+      var n = 0
       for (let entry of cat.entries) {
-        getItem(name, entry.name, 0)
+        getItem(name, entry.name, n++, 0)
       }
     }
   }

@@ -13,33 +13,46 @@ body {
   position: relative;
 }
 #journal {
-  margin-left: 4px;
   display: flex;
   flex-direction: column;
 }
 .items {
   display: flex;
   flex-wrap: wrap;
-  margin-left: 166px;
+  margin-left: 160px;
+  margin-top: -32px;
 }
 .header {
   width: 160px;
-  float: left;
+  height: 32px;
 }
 .header .name {
   width: 80px;
   font-size: 0.8em;
   display: inline-block;
+  cursor: pointer;
+}
+.header .found {
+  text-align: right;
+  width: 30px;
+  display: inline-block;
+}
+.header .total {
+  width: 30px;
+  display: inline-block;
 }
 .break {
   flex-basis: 100%;
-  width: 100%;
-  order: 2;
+  order: 1;
 }
 .item {
   width: 32px;
   height: 32px;
-  order: 1;
+  order: 0;
+  cursor: pointer;
+}
+.terra, .hh, .eggpants, .shoppie, .tun, .yang, .bodyguard, .cavemanshoppie, .ghistshoppie, .vanhorsing, .parsley, .parsnip, .parmesan, .sparrow, .beg {
+  order: 2;
 }
 #places .item, .frogtrap {
   width: 64px;
@@ -48,8 +61,13 @@ body {
   height: 64px;
   order: 2;
 }
-.giantclam, .boulder, .giantcrushtrap, .logtrap, .bonedrop, .yama, .tusk, .waddler, .ammit, .anubis, .anubis2, .apep, .celestialjelly, .eggplantminister, .ghost, .giantfly, .giantspider, .goliathfrog, .greathumphead, .hundun, .kingu, .lahamu, .lamassu, .lavamander, .mechrider, .mummy, .olmec, .osiris, .pangxie, .queenbee, .quillback, .tiamat, .yetiking, .yetiqueen {
+.giantclam, .boulder, .giantcrushtrap, .logtrap, .bonedrop, .yama, .tusk, .waddler, .ammit, .anubis, .anubisii, .apep, .celestialjelly, .eggplantminister, .ghost, .giantfly, .giantspider, .goliathfrog, .greathumphead, .hundun, .kingu, .lahamu, .lamassu, .lavamander, .mechrider, .mummy, .olmec, .osiris, .pangxie, .queenbee, .quillback, .tiamat, .yetiking, .yetiqueen {
   width: 64px;
   height: 64px;
   order: 3;
+}
+@media only screen and (max-width: 640px) {
+  .items {
+    margin: auto;
+  }
 }
