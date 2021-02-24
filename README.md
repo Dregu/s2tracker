@@ -1,5 +1,5 @@
 # s2tracker
-Tracker for Spelunky 2 RTA speedrun categories.
+Journal tracker for Spelunky 2 RTA speedrun categories.
 
 ## Installation
 Run fron source:
