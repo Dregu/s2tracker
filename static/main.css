@@ -13,6 +13,7 @@ body {
   position: relative;
 }
 #journal {
+  margin: 8px;
   display: flex;
   flex-direction: column;
 }
@@ -29,17 +30,25 @@ body {
   width: 110px;
   display: inline-block;
 }
+.break {
+  flex-basis: 100%;
+  width: 100%;
+  order: 2;
+}
 .item {
   width: 32px;
   height: 32px;
+  order: 1;
 }
-#places .item, #frogtrap {
+#places .item, .frogtrap {
   width: 64px;
 }
-#totemtrap, #liontrap, #slidingwall, #stickytrap {
+.totemtrap, .liontrap, .slidingwall, .stickytrap {
   height: 64px;
+  order: 2;
 }
-#giantclam, #boulder, #giantcrushtrap, #logtrap, #bonedrop, #yama, #tusk, #waddler, #ammit, #anubis, #anubis2, #apep, #celestialjelly, #eggplantminister, #ghost, #giantfly, #giantspider, #goliathfrog, #greathumphead, #hundun, #kingu, #lahamu, #lamassu, #lavamander, #mechrider, #mummy, #olmec, #osiris, #pangxie, #queenbee, #quillback, #tiamat, #yetiking, #yetiqueen {
+.giantclam, .boulder, .giantcrushtrap, .logtrap, .bonedrop, .yama, .tusk, .waddler, .ammit, .anubis, .anubis2, .apep, .celestialjelly, .eggplantminister, .ghost, .giantfly, .giantspider, .goliathfrog, .greathumphead, .hundun, .kingu, .lahamu, .lamassu, .lavamander, .mechrider, .mummy, .olmec, .osiris, .pangxie, .queenbee, .quillback, .tiamat, .yetiking, .yetiqueen {
   width: 64px;
   height: 64px;
+  order: 3;
 }

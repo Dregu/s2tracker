@@ -1,7 +1,7 @@
 const container = document.getElementById('container')
 var journal = {
   'Places': {
-    'size': 16, 'num': 0, 'found': 0, 'entries': [
+    'offset': 0, 'size': 16, 'num': 0, 'found': 0, 'entries': [
       { 'name': 'Dwelling', 'found': 0 },
       { 'name': 'Jungle', 'found': 0 },
       { 'name': 'Volcana', 'found': 0 },
@@ -21,7 +21,7 @@ var journal = {
     ]
   },
   'Bestiary': {
-    'size': 78, 'num': 2, 'found': 0, 'entries': [
+    'offset': 16, 'size': 78, 'num': 2, 'found': 0, 'entries': [
       { 'name': 'Snake', 'found': 0 },
       { 'name': 'Spider', 'found': 0 },
       { 'name': 'Bat', 'found': 0 },
@@ -103,7 +103,7 @@ var journal = {
     ]
   },
   'People': {
-    'size': 38, 'num': 1, 'found': 0, 'entries': [
+    'offset': 94, 'size': 38, 'num': 1, 'found': 0, 'entries': [
       { 'name': 'Ana', 'found': 0 },
       { 'name': 'Margaret', 'found': 0 },
       { 'name': 'Colin', 'found': 0 },
@@ -145,7 +145,7 @@ var journal = {
     ]
   },
   'Items': {
-    'size': 54, 'num': 3, 'found': 0, 'entries': [
+    'offset': 132, 'size': 54, 'num': 3, 'found': 0, 'entries': [
       { 'name': 'Rope Pile', 'found': 0 },
       { 'name': 'Bomb Bag', 'found': 0 },
       { 'name': 'Bomb Box', 'found': 0 },
@@ -203,7 +203,7 @@ var journal = {
     ]
   },
   'Traps': {
-    'size': 24, 'num': 4, 'found': 0, 'entries': [
+    'offset': 186, 'size': 24, 'num': 4, 'found': 0, 'entries': [
       { 'name': 'Spikes', 'found': 0 },
       { 'name': 'Arrow Trap', 'found': 0 },
       { 'name': 'Totem Trap', 'found': 0 },
@@ -229,7 +229,31 @@ var journal = {
       { 'name': 'Bone Drop', 'found': 0 },
       { 'name': 'Egg Sac', 'found': 0 }
     ]
-  }
+  },
+  'Chars': {
+    'offset': 94, 'size': 20, 'num': 5, 'found': 0, 'entries': [
+      { 'name': 'Ana', 'found': 0 },
+      { 'name': 'Margaret', 'found': 0 },
+      { 'name': 'Colin', 'found': 0 },
+      { 'name': 'Roffy', 'found': 0 },
+      { 'name': 'Alto', 'found': 0 },
+      { 'name': 'Liz', 'found': 0 },
+      { 'name': 'Nekka', 'found': 0 },
+      { 'name': 'LISE', 'found': 0 },
+      { 'name': 'Coco', 'found': 0 },
+      { 'name': 'Manfred', 'found': 0 },
+      { 'name': 'Jay', 'found': 0 },
+      { 'name': 'Tina', 'found': 0 },
+      { 'name': 'Valerie', 'found': 0 },
+      { 'name': 'Au', 'found': 0 },
+      { 'name': 'Demi', 'found': 0 },
+      { 'name': 'Pilot', 'found': 0 },
+      { 'name': 'Airyn', 'found': 0 },
+      { 'name': 'Dirk', 'found': 0 },
+      { 'name': 'Guy', 'found': 0 },
+      { 'name': 'Classic', 'found': 0 }
+    ]
+  },
 }, state = {}
 
 const entryCount = (entries) => {
@@ -240,7 +264,7 @@ const found = (cat, i, found) => {
   found = parseInt(found)
   var item = journal[cat].entries[i]
   item.found = found
-  var el = document.getElementById(getId(item.name))
+  var el = document.querySelector('#'+getId(cat)+' .'+getId(item.name))
   if (el)
     el.style.display = (found ? 'none' : 'inline-block')
   var found = document.querySelector('#' + getId(cat) + ' .found')
@@ -285,26 +309,29 @@ const getCat = (cat) => {
 }
 
 const getItem = (cat, item, found) => {
-  if (!document.getElementById(getId(item))) {
+  if (!document.querySelector('#'+getId(cat)+' .'+getId(item))) {
+    var items = getCat(cat)
+    if (getId(item) == 'quillback') {
+      var br = document.createElement('div')
+      br.className = 'break'
+      items.appendChild(br)
+    }
     var el = document.createElement('img')
+    if (cat == 'Chars') cat = 'People'
     el.src = 'img/'+getId(cat)+'/'+getId(item)+'.png'
     el.alt = item
     el.title = item
     el.style.display = (found ? 'none' : 'inline-block')
-    el.id = getId(item)
-    el.className = 'item'
-    var items = getCat(cat)
+    el.className = 'item '+getId(item)
     items.appendChild(el)
   }
-  return document.getElementById(getId(item))
+  return document.querySelector('#'+getId(cat)+' .'+getId(item))
 }
 
 const updateJournal = () => {
   var data = state.journal.split(',')
-  var pos = 0
   for (let [name, cat] of Object.entries(journal)) {
-    const entries = data.slice(pos, pos + cat.size)
-    pos += cat.size
+    const entries = data.slice(cat.offset, cat.offset+cat.size)
     journal[name].found = entryCount(entries)
     for (let i = 0; i < entries.length; ++i) {
       found(name, i, entries[i])
