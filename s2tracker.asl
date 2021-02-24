@@ -1,8 +1,8 @@
+// This is just a standalone version, the functionality is baked in the Spelunky 2 autosplitter too.
+
 state("Spel2") {}
 
 startup {
-  settings.Add("ms", true, "Miscellaneous");
-  settings.Add("tracker", false, "Enable journal tracker support", "ms");
   refreshRate = 15;
 }
 
@@ -11,6 +11,7 @@ init {
   vars.state = new MemoryWatcherList();
   vars.checksum = 0;
   do {
+    Thread.Sleep(1000);
     var gameDir = Path.GetDirectoryName(modules.First().FileName);
     var path = gameDir + "\\" + "savegame.sav";
     try {
@@ -41,22 +42,20 @@ init {
 }
 
 update {
-  if (settings["tracker"]) {
-    vars.journal = game.ReadBytes((IntPtr)vars.ptr, 0xd1);
-    int sum = 0;
-    Array.ForEach((System.Byte[])vars.journal, i => sum += i);
-    if (sum != vars.checksum) {
-      vars.checksum = sum;
-      var post = "journal="+string.Join(",", vars.journal);
-      byte[] bytes = Encoding.ASCII.GetBytes(post);
-      System.Net.WebRequest req = System.Net.WebRequest.Create("http://localhost:27122/");
-      req.Method = "POST";
-      req.ContentType = "application/x-www-form-urlencoded";
-      Stream dataStream = req.GetRequestStream();
-      dataStream.Write(bytes, 0, bytes.Length);
-      dataStream.Close();
-      System.Net.WebResponse res = req.GetResponse();
-      print(((System.Net.HttpWebResponse)res).StatusDescription);
-    }
+  vars.journal = game.ReadBytes((IntPtr)vars.ptr, 0xec);
+  int sum = 0;
+  Array.ForEach((System.Byte[])vars.journal, i => sum += i);
+  if (sum != vars.checksum) {
+    vars.checksum = sum;
+    var post = "journal="+string.Join(",", vars.journal);
+    byte[] bytes = Encoding.ASCII.GetBytes(post);
+    System.Net.WebRequest req = System.Net.WebRequest.Create("http://localhost:27122/");
+    req.Method = "POST";
+    req.ContentType = "application/x-www-form-urlencoded";
+    Stream dataStream = req.GetRequestStream();
+    dataStream.Write(bytes, 0, bytes.Length);
+    dataStream.Close();
+    System.Net.WebResponse res = req.GetResponse();
+    print(((System.Net.HttpWebResponse)res).StatusDescription);
   }
 }
