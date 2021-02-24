@@ -3,6 +3,7 @@ state("Spel2") {}
 startup {
   settings.Add("ms", true, "Miscellaneous");
   settings.Add("tracker", false, "Enable journal tracker support", "ms");
+  refreshRate = 15;
 }
 
 init {

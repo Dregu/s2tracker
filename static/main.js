@@ -283,7 +283,8 @@ const getCat = (cat) => {
     head.className = 'header'
     var name = document.createElement('span')
     name.className = 'name'
-    name.innerHTML = cat+' '
+    name.innerHTML = cat
+    name.onclick = function() { window.location.hash = this.innerHTML.toLowerCase() }
     var found = document.createElement('span')
     found.className = 'found'
     found.innerHTML = journal[cat].found
@@ -339,6 +340,20 @@ const updateJournal = () => {
   }
 }
 
+const hideCats = () => {
+  var hash = window.location.hash.substr(1).toLowerCase()
+  if (hash) {
+    document.querySelectorAll('.cat').forEach((cat) => {
+      if (cat.id != hash) {
+        cat.style.display = 'none'
+      } else {
+        cat.style.display = 'block'
+      }
+    })
+  }
+}
+window.addEventListener('hashchange', hideCats, false)
+
 const getJournal = () => {
   if (!document.getElementById('journal')) {
     var el = document.createElement('div')
@@ -352,6 +367,7 @@ const getJournal = () => {
       }
     }
   }
+  hideCats()
   updateJournal()
   return document.getElementById('journal')
 }
@@ -370,7 +386,6 @@ const connect = () => {
       state = data['update']
     }
     getJournal()
-    console.log(journal)
   }
   ws.onclose = (e) => {
     console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason)

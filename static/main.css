@@ -13,21 +13,22 @@ body {
   position: relative;
 }
 #journal {
-  margin: 8px;
+  margin-left: 4px;
   display: flex;
   flex-direction: column;
 }
 .items {
   display: flex;
   flex-wrap: wrap;
-  margin-left: 200px;
+  margin-left: 166px;
 }
 .header {
-  width: 180px;
+  width: 160px;
   float: left;
 }
 .header .name {
-  width: 110px;
+  width: 80px;
+  font-size: 0.8em;
   display: inline-block;
 }
 .break {
