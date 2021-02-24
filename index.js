@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 var app = express()
 const expressWs = require('express-ws')(app)
-const nconf = require('nconf')
+const open = require('open')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/', express.static(__dirname + '/static'))
@@ -35,5 +35,8 @@ app.ws('/', (ws, req) => {
 
 })
 
-console.log('Tracker is up on http://localhost:27122/')
-app.listen(27122)
+var server = app.listen(27122, function() {
+    var port = server.address().port
+    console.log('Tracker is listening on http://localhost:%s', port)
+    open('http://localhost:'+port)
+})

@@ -6,7 +6,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-ws": "^4.0.0",
-    "nconf": "^0.10.0"
+    "open": "^7.4.2"
   },
   "devDependencies": {},
   "scripts": {
@@ -16,6 +16,9 @@
   "license": "MIT",
   "bin": "index.js",
   "pkg": {
-    "assets": ["static/*", "static/img/**/*"]
+    "assets": [
+      "static/*",
+      "static/img/**/*"
+    ]
   }
 }
