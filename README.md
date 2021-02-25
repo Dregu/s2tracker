@@ -2,7 +2,7 @@
 Journal tracker for Spelunky 2 RTA speedrun categories.
 
 ## Installation
-Run fron source:
+Run from source:
 ```
 cd s2tracker
 npm install
@@ -20,3 +20,4 @@ If you want to make things smaller for OBS, you can use custom CSS in the browse
 #places { display: none }
 .item { width: 32px; height: 32px; order: 0; }
 ```
+and set your browser width to 3000 to get a nice bottom bar with small icons in journal order.
