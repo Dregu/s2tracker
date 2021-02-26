@@ -18,7 +18,7 @@
   "pkg": {
     "assets": [
       "static/*",
-      "static/img/**/*"
+      "static/img/*"
     ]
   }
 }
