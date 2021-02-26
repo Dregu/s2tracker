@@ -24,7 +24,7 @@ body {
   float: left;
   clear: both;
 }
-#cityofgold, #abzu, #duat, #tiamatsthrone, #eggplantworld, #hundunshideaway, #cosmicocean {
+#cityofgold, #abzu, #duat, #tiamatsthrone, #eggplantworld, #hundunshideaway, #cosmicocean, #olmecslair {
   clear: none;
 }
 .items {
@@ -56,7 +56,7 @@ body {
   order: 1;
 }
 .item {
-  width: 32px;
+  width: auto;
   height: 32px;
   order: 0;
   cursor: pointer;
@@ -64,13 +64,16 @@ body {
 .terra, .hh, .eggpants, .shoppie, .tun, .yang, .bodyguard, .cavemanshoppie, .ghistshoppie, .vanhorsing, .parsley, .parsnip, .parmesan, .sparrow, .beg {
   order: 2;
 }
-.dwelling, .jungle, .volcana, .olmecslair, .tidepool, .abzu, .templeofanubis, .cityofgold, .duat, .icecaves, .neobabylon, .tiamatsthrone, .sunkencity, .eggplantworld, .hundunshideaway, .cosmicocean, .frogtrap {
-  width: 64px;
-}
 .totemtrap, .liontrap, .slidingwall, .stickytrap {
   height: 32px;
   width: 16px;
   margin: 0 8px;
+  order: 2;
+}
+.frogtrap {
+  height: 16px;
+  width: 32px;
+  margin: 8px 0;
   order: 2;
 }
 .giantclam, .boulder, .giantcrushtrap, .logtrap, .bonedrop, .yama, .tusk, .waddler, .ammit, .anubis, .anubisii, .apep, .celestialjelly, .eggplantminister, .ghost, .giantfly, .giantspider, .goliathfrog, .greathumphead, .hundun, .kingu, .lahamu, .lamassu, .lavamander, .mechrider, .mummy, .olmec, .osiris, .pangxie, .queenbee, .quillback, .tiamat, .yetiking, .yetiqueen {
@@ -79,7 +82,9 @@ body {
   order: 3;
 }
 #generic::before {
+  display: inline-block;
   width: 64px;
+  min-width: 64px;
   text-align: center;
   color: #eee;
   font-size: 20px;
