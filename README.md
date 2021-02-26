@@ -21,9 +21,14 @@ Click on the icons to hide them manually, if you're not using livesplit for some
 
 ### Custom CSS tweaks
 You can add some custom CSS in OBS to edit the appearance a bit.
-
-If you want to put all areas on their own rows in #area, add
 ```
+/* Put all areas back on their own row */
 .cat { clear: both!important; }
+
+/* Align to top instead of bottom */
+#journal { top: 0; }
+
+/* Don't wrap item rows even if they don't fit */
+.items { flex-wrap: nowrap; }
 ```
 Check [main.css](https://github.com/Dregu/s2tracker/blob/master/static/main.css) for some more ideas.
