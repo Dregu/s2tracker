@@ -11,13 +11,21 @@ body {
 }
 #container {
   position: relative;
+  height: 100vh;;
 }
 #journal {
-  display: flex;
+  display: block;
   flex-direction: column;
+  position: absolute;
+  bottom: 0;
 }
 .cat {
   display: flex;
+  float: left;
+  clear: both;
+}
+#cityofgold, #abzu, #duat, #tiamatsthrone, #eggplantworld, #hundunshideaway, #cosmicocean {
+  clear: none;
 }
 .items {
   display: flex;
@@ -56,17 +64,27 @@ body {
 .terra, .hh, .eggpants, .shoppie, .tun, .yang, .bodyguard, .cavemanshoppie, .ghistshoppie, .vanhorsing, .parsley, .parsnip, .parmesan, .sparrow, .beg {
   order: 2;
 }
-#places .item, .frogtrap {
+.dwelling, .jungle, .volcana, .olmecslair, .tidepool, .abzu, .templeofanubis, .cityofgold, .duat, .icecaves, .neobabylon, .tiamatsthrone, .sunkencity, .eggplantworld, .hundunshideaway, .cosmicocean, .frogtrap {
   width: 64px;
 }
 .totemtrap, .liontrap, .slidingwall, .stickytrap {
-  height: 64px;
+  height: 32px;
+  width: 16px;
+  margin: 0 8px;
   order: 2;
 }
 .giantclam, .boulder, .giantcrushtrap, .logtrap, .bonedrop, .yama, .tusk, .waddler, .ammit, .anubis, .anubisii, .apep, .celestialjelly, .eggplantminister, .ghost, .giantfly, .giantspider, .goliathfrog, .greathumphead, .hundun, .kingu, .lahamu, .lamassu, .lavamander, .mechrider, .mummy, .olmec, .osiris, .pangxie, .queenbee, .quillback, .tiamat, .yetiking, .yetiqueen {
-  width: 64px;
-  height: 64px;
+  width: 32px;
+  height: 32px;
   order: 3;
+}
+#generic::before {
+  width: 64px;
+  text-align: center;
+  color: #eee;
+  font-size: 20px;
+  font-weight: bold;
+  content: 'Misc';
 }
 @media only screen and (max-width: 799px) {
   .cat {
