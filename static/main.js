@@ -3,7 +3,7 @@ var hash = window.location.hash.substr(1).toLowerCase()
 var journal = {
   'Places': {
     'offset': 0, 'size': 16, 'num': 0, 'found': 0, 'entries': [
-      { 'name': 'Dwelling', 'found': 1, 'area': 1 },
+      { 'name': 'Dwelling', 'found': 0, 'area': 1 },
       { 'name': 'Jungle', 'found': 0, 'area': 2 },
       { 'name': 'Volcana', 'found': 0, 'area': 3 },
       { 'name': 'Olmec\'s Lair', 'found': 0, 'area': 4 },

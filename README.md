@@ -18,3 +18,12 @@ Go to http://localhost:27122/#area to arrange everything by their probable area 
 Click on the category names or just go to http://localhost:27122/#people to show just one category.
 
 Click on the icons to hide them manually, if you're not using livesplit for some reason.
+
+### Custom CSS tweaks
+You can add some custom CSS in OBS to edit the appearance a bit.
+
+If you want to put all areas on their own rows in #area, add
+```
+.cat { clear: both!important; }
+```
+Check [main.css](https://github.com/Dregu/s2tracker/blob/master/static/main.css) for some more ideas.
