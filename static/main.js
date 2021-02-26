@@ -354,11 +354,13 @@ const updateJournal = () => {
     journal[name].found = entryCount(entries)
     for (let i = 0; i < entries.length; ++i) {
       var area = journal[name].entries[i].area
-      if (name != 'Places') {
+      if (parseInt(entries[i]) == 0) {
+        found(name, i, entries[i])
+      } else if (name != 'Places') {
+        found(name, i, entries[i])
+      } else if (name == 'Places' && areafound[area] >= areatotal[area]) {
         found(name, i, entries[i])
       }
-      if (name == 'Places' && areafound[area] >= areatotal[area])
-        found(name, i, entries[i])
     }
   }
 }
