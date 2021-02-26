@@ -82,17 +82,18 @@ body {
   order: 3;
 }
 #generic::before {
-  display: inline-block;
   width: 64px;
   min-width: 64px;
   text-align: center;
   color: #eee;
   font-size: 20px;
   font-weight: bold;
+  float: left;
   content: 'Misc';
 }
 @media only screen and (max-width: 799px) {
   .cat {
+    clear: both!important;
     display: block;
   }
 }

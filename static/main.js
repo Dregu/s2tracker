@@ -251,7 +251,7 @@ const found = (cat, i, found) => {
     if (i.found) num++
   }
   journal[cat].found = num
-  if (hash != 'area') {
+  if (hash != 'area' && hash != 'char') {
     var found = document.querySelector('#' + getId(cat) + ' .found')
     if (found)
       found.innerHTML = journal[cat].found
@@ -260,6 +260,14 @@ const found = (cat, i, found) => {
 
 const getId = (item) => {
   return item.toString().toLowerCase().replace(/[^a-z]*/g, '')
+}
+
+const countChars = () => {
+  var num = 0
+  for (let i = 0; i < 20; i++) {
+    if (journal.People.entries[i].found) num++
+  }
+  return num
 }
 
 const getCat = (cat) => {
@@ -271,9 +279,12 @@ const getCat = (cat) => {
       head.style.display = 'none'
     var name = document.createElement('span')
     name.className = 'name'
-    name.innerHTML = cat
+    if (hash == 'char')
+      name.innerHTML = 'Chars'
+    else
+      name.innerHTML = cat
     head.appendChild(name)
-    if (hash != 'area') {
+    if (hash != 'area' && hash != 'char') {
       name.onclick = function () { window.location.hash = this.innerHTML.toLowerCase() }
       var found = document.createElement('span')
       found.className = 'found'
@@ -288,10 +299,18 @@ const getCat = (cat) => {
       head.appendChild(found)
       head.appendChild(slash)
       head.appendChild(total)
+    } else if (hash == 'char') {
+      var found = document.createElement('span')
+      found.className = 'found'
+      found.innerHTML = countChars()
+      var slash = document.createElement('span')
+      slash.innerHTML = '/20'
+      head.appendChild(found)
+      head.appendChild(slash)
     }
     el.id = getId(cat)
     el.className = 'cat'
-    if (hash != 'area')
+    if (hash != 'area' && hash != 'char')
       el.style.order = journal[cat].num
     el.appendChild(head)
     var items = document.createElement('div')
@@ -303,7 +322,7 @@ const getCat = (cat) => {
 }
 
 const getItem = (cat, acat, item, n, f, a, num) => {
-  if (!document.querySelector('#' + getId(cat) + ' .' + getId(item))) {
+  if (!document.querySelector('.' + getId(item)) && hash != 'char' || (cat == 'People' && n < 20)) {
     if (hash == 'area')
       var items = getCat(acat)
     else
@@ -329,7 +348,8 @@ const getItem = (cat, acat, item, n, f, a, num) => {
       el.style.order = num*100+n
     items.appendChild(el)
   }
-  return document.querySelector('.' + getId(item))
+  if(hash != 'char' || (cat == 'People' && n < 20))
+    return document.querySelector('.' + getId(item))
 }
 
 const updateJournal = () => {
@@ -368,7 +388,7 @@ const updateJournal = () => {
 const hashChange = () => {
   hash = window.location.hash.substr(1).toLowerCase()
   if (hash) {
-    if (hash != 'area') {
+    if (hash != 'area' && hash != 'char') {
       document.querySelectorAll('.cat').forEach((cat) => {
         if (cat.id != hash) {
           cat.style.display = 'none'
@@ -396,7 +416,7 @@ const getJournal = () => {
           areaname = journal.Places.entries[entry.area - 1].name
         else
           areaname = 'Generic'
-        getItem(name, areaname, entry.name, n++, 0, entry.area, cat.num)
+        getItem(name, areaname, entry.name, n++, entry.found, entry.area, cat.num)
       }
     }
   }
