@@ -251,7 +251,7 @@ const found = (cat, i, found) => {
     if (i.found) num++
   }
   journal[cat].found = num
-  if (hash != 'area' && hash != 'char') {
+  if (hash != 'area') {
     var found = document.querySelector('#' + getId(cat) + ' .found')
     if (found)
       found.innerHTML = journal[cat].found
