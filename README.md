@@ -22,12 +22,11 @@ Or just [get the release](https://github.com/Dregu/s2tracker/releases/latest) wi
 - Go to http://localhost:27122/ for a category view.
 - Go to http://localhost:27122/#area to arrange everything by their probable area found.
 - Go to http://localhost:27122/#char for a character tracker.
+- Click on the category names or just go to http://localhost:27122/#people etc to show just one category.
 
 These are designed for OBS Browser, so they might look a little goofy in your regular one.
 
-Click on the category names or just go to http://localhost:27122/#people to show just one category.
-
-Click on the icons to hide them manually, if you're not using livesplit for some reason.
+Click on the icons to hide them manually, if you're not using livesplit for some reason. Reload to reset in that case.
 
 ### Custom CSS tweaks
 You can add some custom CSS in OBS to edit the appearance a bit.
