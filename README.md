@@ -11,11 +11,19 @@ node index.js
 Or just [get the release](https://github.com/Dregu/s2tracker/releases/latest) with nodejs packaged in.
 
 ## Usage
-Start s2tracker, enable the tracker option in the [autosplitter](https://github.com/Dregu/LiveSplit-Spelunky2) and go to http://localhost:27122/.
+**The recommended order of operations is to:**
 
-Go to http://localhost:27122/#area to arrange everything by their probable area found.
+1. Start s2tracker
+2. Start livesplit with the tracker option enabled
+3. Start the game
 
-Go to http://localhost:27122/#char for a character tracker.
+**(Why? The livesplit part works by finding your savegame in the memory at start. There are two copies of the savegame in the memory, one has the most recently saved data and the other has unsaved changes too. We want the unsaved changes, because that makes the tracker update instantly. If you load the autosplitter when there are unsaved changes to the journal, livesplit can't find the right data and you won't get instant updates, instead updating on level change or death.)**
+
+- Go to http://localhost:27122/ for a category view.
+- Go to http://localhost:27122/#area to arrange everything by their probable area found.
+- Go to http://localhost:27122/#char for a character tracker.
+
+These are designed for OBS Browser, so they might look a little goofy in your regular one.
 
 Click on the category names or just go to http://localhost:27122/#people to show just one category.
 
