@@ -1,6 +1,8 @@
 # s2tracker
 Journal tracker for Spelunky 2 RTA speedrun categories.
 
+![s2tracker.png](s2tracker.png "Comes in many shapes and sizes")
+
 ## Installation
 Run from source:
 ```
