@@ -24,7 +24,7 @@ Click on the icons to hide them manually, if you're not using livesplit for some
 ### Custom CSS tweaks
 You can add some custom CSS in OBS to edit the appearance a bit.
 ```css
-/* Put all areas back on their own row */
+/* Put all areas back on their own row (This is done automatically though when width < 800px) */
 .cat { clear: both!important; }
 
 /* Align to top instead of bottom */
