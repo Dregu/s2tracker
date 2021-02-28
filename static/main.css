@@ -81,15 +81,15 @@ body {
   height: 32px;
   order: 3;
 }
-#generic::before {
+#percent {
   width: 64px;
   min-width: 64px;
   text-align: center;
   color: #eee;
   font-size: 20px;
+  line-height: 32px;
   font-weight: bold;
   float: left;
-  content: 'Misc';
 }
 @media only screen and (max-width: 799px) {
   .cat {

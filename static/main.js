@@ -237,24 +237,26 @@ const entryCount = (entries) => {
   return entries.reduce((a, b) => parseInt(a) + parseInt(b), 0)
 }
 
-const found = (cat, i, found) => {
-  found = parseInt(found)
-  if (found)
-    console.log("Found", cat, i)
+const found = (cat, i, f) => {
+  f = parseInt(f)
   var item = journal[cat].entries[i]
-  item.found = found
+  item.found = f
   var el = document.querySelector('.'+getId(item.name))
   if (el)
-    el.style.display = (found ? 'none' : 'inline-block')
+    el.style.display = (f ? 'none' : 'inline-block')
   var num = 0
   for (let i of journal[cat].entries) {
     if (i.found) num++
   }
   journal[cat].found = num
-  if (hash != 'area') {
-    var found = document.querySelector('#' + getId(cat) + ' .found')
-    if (found)
-      found.innerHTML = journal[cat].found
+  if (hash != 'area' && hash != 'char') {
+    var cel = document.querySelector('#' + getId(cat) + ' .found')
+    if (cel)
+      cel.innerHTML = journal[cat].found
+  } else if (hash == 'char') {
+    var cel = document.querySelector('#' + getId(cat) + ' .found')
+    if (cel)
+      cel.innerHTML = countChars()
   }
 }
 
@@ -268,6 +270,21 @@ const countChars = () => {
     if (journal.People.entries[i].found) num++
   }
   return num
+}
+
+const getPercent = () => {
+  var num = 0
+  if (hash == 'char') {
+    for (let i = 0; i < 20; i++) {
+      if (journal.People.entries[i].found) num++
+    }
+    return Math.floor(num / 20 * 100) + '%'
+  }
+  var data = state.journal.split(',')
+  for (let i of data) {
+    num += parseInt(i)
+  }
+  return Math.floor(num / 210 * 100) + '%'
 }
 
 const getCat = (cat) => {
@@ -336,7 +353,7 @@ const getItem = (cat, acat, item, n, f, a, num) => {
     el.src = 'img/' + getId(item) + '.png'
     el.alt = item
     el.title = item
-    el.style.display = (f ? 'none' : 'inline-block')
+    //el.style.display = (f ? 'none' : 'inline-block')
     el.className = 'item ' + getId(item)
     el.dataset.cat = cat
     el.dataset.acat = acat
@@ -345,7 +362,13 @@ const getItem = (cat, acat, item, n, f, a, num) => {
     el.dataset.n = n
     el.onclick = function () { found(this.dataset.cat, parseInt(this.dataset.n), 1) }
     if (hash == 'area')
-      el.style.order = num*100+n
+      el.style.order = num * 100 + n
+    if (!document.getElementById('percent') && (acat == 'Generic' && hash == 'area')) {
+      var perc = document.createElement('div')
+      perc.id = 'percent'
+      perc.innerHTML = getPercent()
+      items.appendChild(perc)
+    }
     items.appendChild(el)
   }
   if(hash != 'char' || (cat == 'People' && n < 20))
@@ -353,6 +376,7 @@ const getItem = (cat, acat, item, n, f, a, num) => {
 }
 
 const updateJournal = () => {
+  found('Places', 0, 0)
   var data = state.journal.split(',')
   var areafound = []
   var areatotal = []
@@ -368,7 +392,6 @@ const updateJournal = () => {
       n++
     }
   }
-  console.log(areafound)
   for (let [name, cat] of Object.entries(journal)) {
     const entries = data.slice(cat.offset, cat.offset+cat.size)
     journal[name].found = entryCount(entries)
@@ -379,10 +402,13 @@ const updateJournal = () => {
       } else if (name != 'Places') {
         found(name, i, entries[i])
       } else if (name == 'Places' && areafound[area] >= areatotal[area]) {
+        console.log(name, i, entries[i], areafound[area], areatotal[area])
         found(name, i, entries[i])
       }
     }
   }
+  var perc = document.getElementById('percent')
+  if(perc) perc.innerHTML = getPercent()
 }
 
 const hashChange = () => {
@@ -407,6 +433,15 @@ const getJournal = () => {
   if (!document.getElementById('journal')) {
     var el = document.createElement('div')
     el.id = 'journal'
+    if (!document.getElementById('percent') && hash != 'area' && hash != 'char') {
+      var perc = document.createElement('div')
+      perc.id = 'percent'
+      perc.innerHTML = getPercent()
+      perc.style.textAlign = 'right'
+      perc.style.width = '150px'
+      perc.style.fontSize = '24px'
+      el.appendChild(perc)
+    }
     container.appendChild(el)
     var data = state.journal.split(',')
     for (let [name, cat] of Object.entries(journal)) {
@@ -439,6 +474,7 @@ const connect = () => {
       state = data['update']
     }
     getJournal()
+    updateJournal()
   }
   ws.onclose = (e) => {
     console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason)
