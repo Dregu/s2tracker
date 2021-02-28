@@ -402,7 +402,6 @@ const updateJournal = () => {
       } else if (name != 'Places') {
         found(name, i, entries[i])
       } else if (name == 'Places' && areafound[area] >= areatotal[area]) {
-        console.log(name, i, entries[i], areafound[area], areatotal[area])
         found(name, i, entries[i])
       }
     }
