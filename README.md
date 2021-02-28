@@ -13,22 +13,21 @@ node index.js
 Or just [get the release](https://github.com/Dregu/s2tracker/releases/latest) with nodejs packaged in.
 
 ## Usage
-**The recommended order of operations is to:**
 
 1. Start s2tracker
 2. Start livesplit with the tracker option enabled
 3. Start the game
 
-**(Why? The livesplit part works by finding your savegame in the memory at start. There are two copies of the savegame in the memory, one has the most recently saved data and the other has unsaved changes too. We want the unsaved changes, because that makes the tracker update instantly. If you load the autosplitter when there are unsaved changes to the journal, livesplit can't find the right data and you won't get instant updates, instead updating on level change or death.)**
-
 - Go to http://localhost:27122/ for a category view.
 - Go to http://localhost:27122/#area to arrange everything by their probable area found.
 - Go to http://localhost:27122/#char for a character tracker.
-- Click on the category names or just go to http://localhost:27122/#people etc to show just one category.
+- Go to http://localhost:27122/#people etc or click on the category names to show just one category.
+
+The tracker also works from your local network if you use your lan ip, on a tablet for example.
 
 These are designed for OBS Browser, so they might look a little goofy in your regular one.
 
-Click on the icons to hide them manually, if you're not using livesplit for some reason. Reload to reset in that case.
+Click on the icons to hide them manually, if you're not using livesplit for some reason. Refresh to reset in that case.
 
 ### Custom CSS tweaks
 You can add some custom CSS in OBS to edit the appearance a bit.
