@@ -15,7 +15,7 @@ Or just [get the release](https://github.com/Dregu/s2tracker/releases/latest) wi
 ## Usage
 
 1. Start s2tracker
-2. Start livesplit with the tracker option enabled
+2. Start livesplit with the tracker option enabled in Spelunky 2 autosplitter
 3. Start the game
 
 - Go to http://localhost:27122/ for a category view.
