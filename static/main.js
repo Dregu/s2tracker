@@ -231,7 +231,8 @@ var journal = {
       { 'name': 'Egg Sac', 'found': 0, 'area': 13 }
     ]
   }
-}, state = {}
+}
+var state = {}
 
 const entryCount = (entries) => {
   return entries.reduce((a, b) => parseInt(a) + parseInt(b), 0)
@@ -280,7 +281,7 @@ const getPercent = () => {
     }
     return Math.floor(num / 20 * 100) + '%'
   }
-  var data = state.journal.split(',')
+  var data = state.journal
   for (let i of data) {
     num += parseInt(i)
   }
@@ -377,7 +378,7 @@ const getItem = (cat, acat, item, n, f, a, num) => {
 
 const updateJournal = () => {
   found('Places', 0, 0)
-  var data = state.journal.split(',')
+  var data = state.journal
   var areafound = []
   var areatotal = []
   for (let [name, cat] of Object.entries(journal)) {
@@ -442,7 +443,7 @@ const getJournal = () => {
       el.appendChild(perc)
     }
     container.appendChild(el)
-    var data = state.journal.split(',')
+    var data = state.journal
     for (let [name, cat] of Object.entries(journal)) {
       var n = 0
       for (let entry of cat.entries) {
