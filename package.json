@@ -9,7 +9,9 @@
     "jade": "^1.11.0",
     "open": "^7.4.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "pkg": "^4.4.9"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,7 +21,8 @@
   "pkg": {
     "assets": [
       "static/*",
-      "static/img/*"
+      "static/img/*",
+      "views/*"
     ]
   }
 }

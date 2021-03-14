@@ -23,13 +23,13 @@ var state = { 'journal': journal }
 var roomCode = null;
 var fyiConnection = null;
 
-const updateState = (newState) => {
+const updateJournal = (newState) => {
+  console.log('Updating state from other player.')
   newState.map((entry, idx) => {
     if (entry) {
       state['journal'][idx] = entry;
     }
   });
-  broadcast(state);
 }
 
 const connectFyi = () => {
@@ -48,7 +48,8 @@ const connectFyi = () => {
   ws.on('message', (data) => {
     data = JSON.parse(data);
     if (data['action'] == 'update') {
-      updateState(data['data'])
+      updateJournal(data['data'])
+      broadcast(state);
     }
   })
 
@@ -95,11 +96,12 @@ app.post('/', (req, res) => {
   res.sendStatus(200)
   Object.entries(req.body).map(([key, value], idx) => {
     if (key === "journal") {
-      value.split(',').map((entry, idx) => {
-        if (entry) {
-          state[key][idx] = entry;
-        }
-      });
+      let newState = value.split(',')
+      if (fyiConnection !== null) {
+        updateJournal(newState)
+      } else {
+        state[key] = isNaN(+value) ? value : +value
+      }
     } else {
       state[key] = isNaN(+value) ? value : +value
     }
@@ -126,6 +128,7 @@ app.ws('/', (ws, req) => {
 
 var server = app.listen(27122, function() {
     var port = server.address().port
-    console.log('Tracker is listening on http://localhost:%s', port)
-    //open('http://localhost:'+port)
+    console.log(`Tracker is listening on http://localhost:${port}`)
+    console.log(`If playing co-op join a room at http://localhost:${port}/join-room`)
+    open(`http://localhost:${port}`)
 })
