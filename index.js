@@ -32,14 +32,13 @@ const updateJournal = (newState) => {
   });
 }
 
-const connectFyi = () => {
-  console.log("Connecting to spelunky.fyi")
-
-  if (!roomCode) {
+const connectFyi = (connectRoomCode) => {
+  if (!connectRoomCode) {
     return null;
   }
+  console.log(`Connecting to spelunky.fyi with room code ${connectRoomCode}`)
 
-  var ws = new WebSocket(`wss://spelunky.fyi/ws/tools/coop-aje-tracker/${roomCode}/`)
+  var ws = new WebSocket(`wss://spelunky.fyi/ws/tools/coop-aje-tracker/${connectRoomCode}/`)
 
   ws.on('open', () => {
     console.log('Connected to Spelunky.fyi')
@@ -54,11 +53,14 @@ const connectFyi = () => {
   })
 
   ws.on('close',  (e) => {
-    console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason)
+    console.log('Socket is closed.')
     fyiConnection = null;
-    setTimeout(() => {
-      fyiConnection = connectFyi();
-    }, 1000)
+    if (roomCode){
+      console.log('Reconnect will be attempted in 1 second.', e.reason)
+      setTimeout(() => {
+        fyiConnection = connectFyi(roomCode);
+      }, 1000)
+    }
   })
 
   ws.on('error', (err) => {
@@ -76,20 +78,17 @@ const broadcast = (status) => {
 }
 
 app.get('/join-room', function (req, res) {
-  res.render('join-room', { 'roomCode': roomCode })
-})
-
-app.post('/join-room', function (req, res) {
-  roomCode = req.body.roomCode
-  if (fyiConnection !== null) {
+  let newRoomCode = req.query.roomCode
+  if (fyiConnection !== null && newRoomCode != roomCode) {
     fyiConnection.close();
     fyiConnection = null;
   }
 
-  if (roomCode !== null) {
-    fyiConnection = connectFyi();
+  if (newRoomCode && newRoomCode != roomCode) {
+    fyiConnection = connectFyi(newRoomCode);
   }
-  res.redirect('/join-room')
+  roomCode = newRoomCode
+  res.render('join-room', { 'roomCode': roomCode })
 })
 
 app.post('/', (req, res) => {
