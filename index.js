@@ -23,6 +23,10 @@ var state = { 'journal': journal }
 var roomCode = null;
 var fyiConnection = null;
 
+const tryInt = (value) => {
+  return isNaN(+value) ? value : +value
+}
+
 const updateJournal = (newState) => {
   console.log('Updating state from other player.')
   newState.map((entry, idx) => {
@@ -95,14 +99,14 @@ app.post('/', (req, res) => {
   res.sendStatus(200)
   Object.entries(req.body).map(([key, value], idx) => {
     if (key === "journal") {
-      let newState = value.split(',')
+      let newState = value.split(',').map((value, idx) => parseInt(value, 10))
       if (fyiConnection !== null) {
         updateJournal(newState)
       } else {
-        state[key] = isNaN(+value) ? value : +value
+        state[key] = newState
       }
     } else {
-      state[key] = isNaN(+value) ? value : +value
+      state[key] = tryInt(value)
     }
   })
   console.log('Got journal data from livesplit')
