@@ -100,11 +100,7 @@ app.post('/', (req, res) => {
   Object.entries(req.body).map(([key, value], idx) => {
     if (key === "journal") {
       let newState = value.split(',').map((value, idx) => parseInt(value, 10))
-      if (fyiConnection !== null) {
-        updateJournal(newState)
-      } else {
-        state[key] = newState
-      }
+      updateJournal(newState)
     } else {
       state[key] = tryInt(value)
     }
